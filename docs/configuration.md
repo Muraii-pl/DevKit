@@ -6,6 +6,30 @@ niczego budować. Wystarczy nadpisać te zmienne we własnym CSS.
 
 ## 1. Instalacja
 
+### Z GitHub Packages (zalecane)
+
+GitHub Packages wymaga logowania nawet przy publicznych pakietach. Jednorazowo:
+
+1. Utwórz token GitHub (classic) z uprawnieniem `read:packages`:
+   <https://github.com/settings/tokens>.
+2. Dodaj do `.npmrc` w projekcie (ten plik można commitować, bo token jest w zmiennej):
+
+   ```ini
+   @muraii-pl:registry=https://npm.pkg.github.com
+   //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+   ```
+
+3. Ustaw zmienną `GITHUB_TOKEN` w środowisku (lokalnie w profilu powłoki, w CI jako sekret).
+
+Potem:
+
+```bash
+npm install @muraii-pl/devkit
+npm install @muraii-pl/devkit@0.1.0   # konkretna wersja
+```
+
+### Bezpośrednio z repozytorium (bez tokenu)
+
 ```bash
 npm install github:Muraii-pl/DevKit          # gałąź domyślna
 npm install github:Muraii-pl/DevKit#v0.1.0   # konkretna wersja (tag)

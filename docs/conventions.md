@@ -45,5 +45,7 @@
 
 ## Commity i branche
 
-- Wersje: tagi `vX.Y.Z` na GitHubie (konsumenci instalują `github:Muraii-pl/DevKit#vX.Y.Z`), zgodnie z semver.
+- Wersje zgodnie z semver. Wydanie: `npm version patch|minor|major` (zmienia `package.json`, robi commit i tag `vX.Y.Z`),
+  potem `git push --follow-tags`. Tag uruchamia `.github/workflows/publish.yml`, który publikuje pakiet w GitHub Packages.
+- Workflow przerywa publikację, jeśli tag nie zgadza się z `version` w `package.json`.
 - TODO: konwencja wiadomości commitów i nazw branchy.

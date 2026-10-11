@@ -8,26 +8,27 @@ Wynik (`dist/`) jest commitowany, a pakiet instaluje się bezpośrednio z GitHub
 
 ## Moduły
 
-| Katalog / plik                | Odpowiedzialność                                           |
-| ----------------------------- | ---------------------------------------------------------- |
-| `src/tokens.css`              | Tokeny w `:where(:root)` (specyficzność 0)                 |
-| `src/utilities/*.css`         | Płaskie reguły klas, wartości tylko przez `var()`          |
-| `src/index.css`               | Kolejność importów = kolejność kaskady                     |
-| `scripts/build.mjs`           | Bundle (lightningcss), warianty `sm/md/lg/xl`, minifikacja |
-| `dist/`                       | `devkit.css`, `devkit.min.css`, generowane i commitowane   |
-| `test/`                       | Testy spójności źródeł i aktualności `dist/`               |
-| `examples/`                   | Strona do podglądu, publikowana na GitHub Pages            |
-| `.github/workflows/pages.yml` | CI (`npm run check`) i deploy podglądu na Pages            |
-| `scripts/hooks/`              | Hook Claude Code formatujący edytowane pliki               |
+| Katalog / plik                  | Odpowiedzialność                                           |
+| ------------------------------- | ---------------------------------------------------------- |
+| `src/tokens.css`                | Tokeny w `:where(:root)` (specyficzność 0)                 |
+| `src/utilities/*.css`           | Płaskie reguły klas, wartości tylko przez `var()`          |
+| `src/index.css`                 | Kolejność importów = kolejność kaskady                     |
+| `scripts/build.mjs`             | Bundle (lightningcss), warianty `sm/md/lg/xl`, minifikacja |
+| `dist/`                         | `devkit.css`, `devkit.min.css`, generowane i commitowane   |
+| `test/`                         | Testy spójności źródeł i aktualności `dist/`               |
+| `examples/`                     | Strona do podglądu, publikowana na GitHub Pages            |
+| `.github/workflows/pages.yml`   | CI (`npm run check`) i deploy podglądu na Pages            |
+| `.github/workflows/publish.yml` | Publikacja w GitHub Packages po tagu `vX.Y.Z`              |
+| `scripts/hooks/`                | Hook Claude Code formatujący edytowane pliki               |
 
 ## Przepływ danych
 
-`src/index.css` (tokeny + utilities) → `scripts/build.mjs` → `dist/devkit(.min).css` → commit/tag →
-`npm install github:Muraii-pl/DevKit` → konsument importuje CSS i nadpisuje tokeny w swoim `:root`.
+`src/index.css` (tokeny + utilities) → `scripts/build.mjs` → `dist/devkit(.min).css` → commit/tag → GitHub Packages →
+`npm install @muraii-pl/devkit` → konsument importuje CSS i nadpisuje tokeny w swoim `:root`.
 
 ## Integracje zewnętrzne
 
-- GitHub jako źródło pakietu, wersje przez tagi (docs/decisions/001-czysty-css-pakiet-github.md).
+- GitHub Packages (`npm.pkg.github.com`) jako rejestr pakietu, publikacja z tagów `vX.Y.Z`. Alternatywnie instalacja bezpośrednio z repo (docs/decisions/001-czysty-css-pakiet-github.md).
 - lightningcss: tylko w devDependencies, używany w buildzie.
 - GitHub Pages: <https://muraii-pl.github.io/DevKit/>, budowane z `examples/index.html` i `dist/` przez workflow.
 

@@ -6,6 +6,14 @@ konfigurowalne zmiennymi CSS.
 
 ## Instalacja
 
+Z GitHub Packages (wymaga `.npmrc` z tokenem, patrz [docs/configuration.md](docs/configuration.md#1-instalacja)):
+
+```bash
+npm install @muraii-pl/devkit
+```
+
+Albo bezpośrednio z repozytorium, bez tokenu:
+
 ```bash
 npm install github:Muraii-pl/DevKit
 ```
@@ -62,6 +70,9 @@ npm install
 npm run build    # src/ → dist/ (dist jest commitowany)
 npm run check    # lint + format + testy
 ```
+
+Wydanie nowej wersji: `npm version patch|minor|major`, potem `git push --follow-tags`.
+Workflow [publish.yml](.github/workflows/publish.yml) opublikuje pakiet w GitHub Packages.
 
 Zasady pracy: [docs/conventions.md](docs/conventions.md).
 

@@ -1,0 +1,32 @@
+# Publikuje pakiet @muraii-pl/devkit w GitHub Packages po wypchnięciu tagu vX.Y.Z
+# (albo ręcznie z zakładki Actions). Wersja z tagu musi zgadzać się z package.json.
+name: Publikacja pakietu
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@muraii-pl'
+      - run: npm ci
+      - run: npm run check
+      - name: Sprawdź zgodność tagu z package.json
+        if: startsWith(github.ref, 'refs/tags/')
+        run: test "${GITHUB_REF_NAME#v}" = "$(node -p "require('./package.json').version")"
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
