@@ -10,4 +10,6 @@ krytyczne zamieniaj w hook/test/regułę lintera; nieaktualne usuwaj.
 
 ## Narzędzia i środowisko
 
+- Nie generuj `package-lock.json` przez lokalny Nexus (192.168.1.23), bo CI go nie widzi i `npm ci` wisi. Repo ma własny `.npmrc` z registry.npmjs.org, nie usuwaj go. (2026-10-11)
+
 ## Workflow
