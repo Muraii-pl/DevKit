@@ -1,0 +1,111 @@
+/*
+ * Tokeny DevKit: wszystkie wartości, z których korzystają klasy.
+ * Nadpisuj je w swoim projekcie w zwykłym `:root { ... }` (dokumentacja: docs/configuration.md).
+ * `:where(:root)` ma specyficzność 0, więc każda Twoja deklaracja wygrywa niezależnie od kolejności.
+ *
+ * Breakpointy (sm 40rem, md 48rem, lg 64rem, xl 80rem) NIE są tokenami:
+ * zmienne CSS nie działają w media queries.
+ */
+:where(:root) {
+  /* Kolory: stałe */
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* gray */
+  --color-gray-100: oklch(96% 0.002 260deg);
+  --color-gray-200: oklch(91% 0.004 260deg);
+  --color-gray-300: oklch(84% 0.007 260deg);
+  --color-gray-400: oklch(75% 0.01 260deg);
+  --color-gray-500: oklch(65% 0.013 260deg);
+  --color-gray-600: oklch(56% 0.013 260deg);
+  --color-gray-700: oklch(47% 0.012 260deg);
+  --color-gray-800: oklch(38% 0.01 260deg);
+  --color-gray-900: oklch(28% 0.007 260deg);
+
+  /* red */
+  --color-red-100: oklch(96% 0.03 25deg);
+  --color-red-200: oklch(91% 0.06 25deg);
+  --color-red-300: oklch(84% 0.1 25deg);
+  --color-red-400: oklch(75% 0.14 25deg);
+  --color-red-500: oklch(65% 0.18 25deg);
+  --color-red-600: oklch(56% 0.19 25deg);
+  --color-red-700: oklch(47% 0.17 25deg);
+  --color-red-800: oklch(38% 0.14 25deg);
+  --color-red-900: oklch(28% 0.1 25deg);
+
+  /* yellow */
+  --color-yellow-100: oklch(96% 0.027 90deg);
+  --color-yellow-200: oklch(91% 0.054 90deg);
+  --color-yellow-300: oklch(84% 0.09 90deg);
+  --color-yellow-400: oklch(75% 0.126 90deg);
+  --color-yellow-500: oklch(65% 0.162 90deg);
+  --color-yellow-600: oklch(56% 0.171 90deg);
+  --color-yellow-700: oklch(47% 0.153 90deg);
+  --color-yellow-800: oklch(38% 0.126 90deg);
+  --color-yellow-900: oklch(28% 0.09 90deg);
+
+  /* green */
+  --color-green-100: oklch(96% 0.027 150deg);
+  --color-green-200: oklch(91% 0.054 150deg);
+  --color-green-300: oklch(84% 0.09 150deg);
+  --color-green-400: oklch(75% 0.126 150deg);
+  --color-green-500: oklch(65% 0.162 150deg);
+  --color-green-600: oklch(56% 0.171 150deg);
+  --color-green-700: oklch(47% 0.153 150deg);
+  --color-green-800: oklch(38% 0.126 150deg);
+  --color-green-900: oklch(28% 0.09 150deg);
+
+  /* blue */
+  --color-blue-100: oklch(96% 0.03 260deg);
+  --color-blue-200: oklch(91% 0.06 260deg);
+  --color-blue-300: oklch(84% 0.1 260deg);
+  --color-blue-400: oklch(75% 0.14 260deg);
+  --color-blue-500: oklch(65% 0.18 260deg);
+  --color-blue-600: oklch(56% 0.19 260deg);
+  --color-blue-700: oklch(47% 0.17 260deg);
+  --color-blue-800: oklch(38% 0.14 260deg);
+  --color-blue-900: oklch(28% 0.1 260deg);
+
+  /* Kolory: role (zmieniaj je, żeby przestylować projekt) */
+  --color-primary: var(--color-blue-600);
+  --color-secondary: var(--color-gray-600);
+  --color-success: var(--color-green-600);
+  --color-warning: var(--color-yellow-500);
+  --color-danger: var(--color-red-600);
+  --color-border: var(--color-gray-200);
+
+  /* Odstępy: klasa `p-4` = 4 × --spacing */
+  --spacing: 0.25rem;
+
+  /* Typografia */
+  --font-sans: system-ui, -apple-system, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+  --font-serif: georgia, cambria, "Times New Roman", times, serif;
+  --font-mono: ui-monospace, sfmono-regular, menlo, consolas, "Liberation Mono", monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* Obramowania i cienie */
+  --border-width: 1px;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+}

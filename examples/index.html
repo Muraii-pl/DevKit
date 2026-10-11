@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DevKit – podgląd</title>
+    <link rel="stylesheet" href="../dist/devkit.css" />
+    <style>
+      /* Przykładowa konfiguracja projektu – zmień i odśwież. */
+      :root {
+        --font-sans: system-ui, sans-serif;
+      }
+
+      .theme-alt {
+        --color-primary: var(--color-green-600);
+        --radius-md: 0;
+      }
+    </style>
+  </head>
+  <body class="font-sans text-gray-900 bg-gray-100 p-4 md:p-10">
+    <h1 class="text-3xl font-bold mb-2">DevKit</h1>
+    <p class="text-gray-600 mb-8">Zmień szerokość okna: od <code>md</code> karty układają się w rzędzie.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">Domyślny motyw</h2>
+        <button class="px-4 py-2 bg-primary text-white rounded cursor-pointer border-0">Primary</button>
+      </div>
+      <div class="theme-alt bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-2">Motyw sekcji</h2>
+        <button class="px-4 py-2 bg-primary text-white rounded cursor-pointer border-0">Primary</button>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow border border-danger">
+        <h2 class="text-lg font-semibold mb-2 text-danger">Role kolorów</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-2 py-1 rounded-full text-xs text-white bg-success">success</span>
+          <span class="px-2 py-1 rounded-full text-xs bg-warning">warning</span>
+          <span class="px-2 py-1 rounded-full text-xs text-white bg-danger">danger</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-2">
+      <div class="flex-1 h-auto p-4 bg-blue-100 text-blue-900 rounded">blue-100</div>
+      <div class="flex-1 p-4 bg-blue-500 text-white rounded">blue-500</div>
+      <div class="flex-1 p-4 bg-blue-900 text-white rounded">blue-900</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "@muraii-pl/devkit",
+  "version": "0.1.0",
+  "description": "Uproszczona biblioteka klas narzędziowych CSS w stylu Tailwinda, konfigurowana zmiennymi CSS.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muraii-pl/DevKit.git"
+  },
+  "style": "dist/devkit.css",
+  "main": "dist/devkit.css",
+  "exports": {
+    ".": "./dist/devkit.css",
+    "./min": "./dist/devkit.min.css",
+    "./tokens": "./src/tokens.css",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test",
+    "lint": "stylelint \"src/**/*.css\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm run format:check && npm test"
+  },
+  "devDependencies": {
+    "lightningcss": "^1.33.0",
+    "prettier": "^3.9.10",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}

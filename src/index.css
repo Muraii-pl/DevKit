@@ -1,0 +1,14 @@
+/*
+ * Plik wejściowy DevKit. Kolejność ma znaczenie: przy tej samej specyficzności
+ * wygrywa klasa zdefiniowana później (np. border-red-500 po border).
+ * Warianty responsywne (sm:, md:, lg:, xl:) dokleja build do dist/.
+ */
+@import url("./tokens.css");
+@import url("./utilities/layout.css");
+@import url("./utilities/flex.css");
+@import url("./utilities/grid.css");
+@import url("./utilities/spacing.css");
+@import url("./utilities/typography.css");
+@import url("./utilities/borders.css");
+@import url("./utilities/colors.css");
+@import url("./utilities/effects.css");
