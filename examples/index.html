@@ -3,47 +3,716 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DevKit – podgląd</title>
-    <link rel="stylesheet" href="../dist/devkit.css" />
+    <title>DevKit – dokumentacja i przykłady</title>
+    <link id="devkit" rel="stylesheet" href="../dist/devkit.css" />
     <style>
-      /* Przykładowa konfiguracja projektu – zmień i odśwież. */
-      :root {
-        --font-sans: system-ui, sans-serif;
+      /* Tylko to, czego DevKit nie ma: reset, sticky nawigacja, bloki kodu, szerokość treści. */
+      *,
+      ::before,
+      ::after {
+        box-sizing: border-box;
       }
 
-      .theme-alt {
-        --color-primary: var(--color-green-600);
-        --radius-md: 0;
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      section {
+        scroll-margin-top: 4rem;
+      }
+
+      .site-nav {
+        top: 0;
+        z-index: 10;
+      }
+
+      .site-main {
+        max-width: 64rem;
+        min-width: 0;
+      }
+
+      pre {
+        margin: 0;
+        padding-right: 4.5rem !important;
+        white-space: pre;
+        tab-size: 2;
+      }
+
+      code {
+        font-family: var(--font-mono);
+        font-size: 0.85em;
+      }
+
+      /* Na telefonie kod się zawija zamiast uciekać w prawo. */
+      @media (width < 48rem) {
+        pre {
+          white-space: pre-wrap;
+          overflow-wrap: anywhere;
+        }
+      }
+
+      .demo-h {
+        height: 6rem;
+      }
+
+      .swatch {
+        height: 2.5rem;
       }
     </style>
   </head>
-  <body class="font-sans text-gray-900 bg-gray-100 p-4 md:p-10">
-    <h1 class="text-3xl font-bold mb-2">DevKit</h1>
-    <p class="text-gray-600 mb-8">Zmień szerokość okna: od <code>md</code> karty układają się w rzędzie.</p>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-lg font-semibold mb-2">Domyślny motyw</h2>
-        <button class="px-4 py-2 bg-primary text-white rounded cursor-pointer border-0">Primary</button>
-      </div>
-      <div class="theme-alt bg-white p-6 rounded-lg shadow">
-        <h2 class="text-lg font-semibold mb-2">Motyw sekcji</h2>
-        <button class="px-4 py-2 bg-primary text-white rounded cursor-pointer border-0">Primary</button>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow border border-danger">
-        <h2 class="text-lg font-semibold mb-2 text-danger">Role kolorów</h2>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-2 py-1 rounded-full text-xs text-white bg-success">success</span>
-          <span class="px-2 py-1 rounded-full text-xs bg-warning">warning</span>
-          <span class="px-2 py-1 rounded-full text-xs text-white bg-danger">danger</span>
+  <body class="font-sans text-gray-900 bg-gray-100 leading-normal">
+    <!-- Nawigacja: pasek u góry na mobile, kolumna od lg -->
+    <div class="lg:flex">
+      <nav
+        class="site-nav sticky bg-white border-b lg:border-b-0 lg:border-r lg:h-screen overflow-x-auto lg:overflow-y-auto"
+      >
+        <div class="flex lg:flex-col gap-1 p-2 lg:p-4 text-sm">
+          <a class="font-bold text-primary no-underline px-2 py-1 shrink-0" href="#start">DevKit</a>
+          <div class="flex items-center gap-2 px-2 py-1 shrink-0 lg:mb-2">
+            <select id="theme-select" class="p-1 border rounded bg-white text-gray-900" aria-label="Motyw">
+              <option value="">default</option>
+              <option value="warm">warm</option>
+              <option value="ocean">ocean</option>
+            </select>
+            <label class="flex items-center gap-1 text-gray-700"><input id="theme-dark" type="checkbox" /> dark</label>
+          </div>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#motywy">Motywy</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#kolory">Kolory</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#odstepy">Odstępy</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#typografia">Typografia</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#layout">Layout</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#flex">Flex</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#grid">Grid</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#obramowania">Obramowania</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#efekty">Efekty</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#responsywnosc">Responsywność</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#tokeny">Tokeny</a>
+          <a class="text-gray-700 no-underline px-2 py-1 rounded shrink-0" href="#klasy">Wszystkie klasy</a>
         </div>
-      </div>
+      </nav>
+
+      <main class="site-main flex-1 p-4 md:p-8">
+        <p id="file-warning" class="hidden p-4 mb-6 bg-yellow-100 text-yellow-900 border border-yellow-300 rounded">
+          Przeglądarka zablokowała odczyt arkusza CSS z pliku lokalnego, więc paleta, skala odstępów, tokeny i lista
+          klas się nie wygenerowały. Uruchom <code>npm run preview</code> i otwórz podany adres.
+        </p>
+
+        <!-- START -->
+        <section id="start" class="mb-12">
+          <h1 class="text-4xl font-bold leading-tight mb-2">DevKit</h1>
+          <p class="text-lg text-gray-700 mb-6">
+            Uproszczona biblioteka klas narzędziowych CSS w stylu Tailwinda. Czysty CSS, warianty responsywne i
+            wszystkie wartości konfigurowalne zmiennymi CSS.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+              <h2 class="text-lg font-semibold mb-2">1. Instalacja</h2>
+              <p class="text-sm text-gray-700 mb-2">Z GitHub Packages (potrzebny <code>.npmrc</code> z tokenem):</p>
+              <pre
+                class="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto"
+                data-copy
+              ><code>npm install @muraii-pl/devkit</code></pre>
+              <p class="text-sm text-gray-700 mt-2 mb-2">albo prosto z repozytorium:</p>
+              <pre
+                class="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto"
+                data-copy
+              ><code>npm install github:Muraii-pl/DevKit</code></pre>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+              <h2 class="text-lg font-semibold mb-2">2. Dołączenie</h2>
+              <pre
+                class="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto"
+                data-copy
+              ><code>@import "@muraii-pl/devkit";</code></pre>
+              <p class="text-sm text-gray-700 mt-2">Wersja zminifikowana: <code>@muraii-pl/devkit/min</code>.</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+              <h2 class="text-lg font-semibold mb-2">3. Konfiguracja</h2>
+              <pre class="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto" data-copy><code>:root {
+  --color-primary: #7c3aed;
+  --spacing: 0.3rem;
+}</code></pre>
+              <p class="text-sm text-gray-700 mt-2">
+                Pełna instrukcja:
+                <a class="text-primary" href="https://github.com/Muraii-pl/DevKit/blob/main/docs/configuration.md"
+                  >docs/configuration.md</a
+                >.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- MOTYWY -->
+        <section id="motywy" class="mb-12">
+          <h2 class="text-2xl font-bold mb-2">Motywy</h2>
+          <p class="text-gray-700 mb-4">
+            Trzy motywy (<code>default</code>, <code>warm</code>, <code>ocean</code>), każdy w wersji jasnej i ciemnej.
+            Włączasz je atrybutem <code>data-theme</code> na <code>&lt;html&gt;</code> albo na dowolnym fragmencie
+            strony. Tryb ciemny dopisujesz jako drugie słowo. Całą stronę przełączysz w nawigacji.
+          </p>
+          <pre
+            class="bg-gray-900 text-gray-100 p-3 rounded text-sm overflow-x-auto mb-6"
+            data-copy
+          ><code>&lt;html data-theme="dark"&gt;        &lt;!-- default ciemny --&gt;
+&lt;html data-theme="warm"&gt;        &lt;!-- warm jasny --&gt;
+&lt;html data-theme="ocean dark"&gt;  &lt;!-- ocean ciemny --&gt;
+&lt;div data-theme="light"&gt;       &lt;!-- jasny fragment na ciemnej stronie --&gt;</code></pre>
+
+          <div id="theme-previews" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-6"></div>
+          <template id="theme-card">
+            <div class="bg-gray-100 p-4 rounded-lg border">
+              <p class="text-xs font-mono text-gray-600 mb-2" data-label></p>
+              <div class="bg-white text-gray-900 p-4 rounded-lg shadow">
+                <p class="font-semibold mb-1">Nagłówek karty</p>
+                <p class="text-sm text-gray-600 mb-3">Tekst pomocniczy w kolorze gray-600.</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="px-3 py-1 rounded bg-primary text-white text-sm">Primary</span>
+                  <span class="px-3 py-1 rounded border border-primary text-primary text-sm">Outline</span>
+                  <span class="px-3 py-1 rounded bg-secondary text-white text-sm">Secondary</span>
+                </div>
+                <div class="flex flex-wrap gap-1">
+                  <span class="px-2 rounded-full text-xs bg-green-100 text-green-800">success</span>
+                  <span class="px-2 rounded-full text-xs bg-yellow-100 text-yellow-800">warning</span>
+                  <span class="px-2 rounded-full text-xs bg-red-100 text-red-800">danger</span>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <div class="example" data-title="Motyw na fragmencie strony">
+            <div data-theme="ocean dark" class="bg-gray-100 text-gray-900 p-4 rounded-lg">
+              <div class="bg-white p-4 rounded shadow">
+                <p class="font-semibold">data-theme="ocean dark"</p>
+                <p class="text-sm text-gray-600">Ten fragment ma własny motyw niezależnie od reszty strony.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- KOLORY -->
+        <section id="kolory" class="mb-12">
+          <h2 class="text-2xl font-bold mb-2">Kolory</h2>
+          <p class="text-gray-700 mb-4">
+            Dla każdego tokenu <code>--color-*</code> są klasy <code>text-*</code>, <code>bg-*</code> i
+            <code>border-*</code>, a także <code>*-transparent</code> i <code>*-current</code>. Role
+            (<code>primary</code>, <code>secondary</code>, <code>success</code>, <code>warning</code>,
+            <code>danger</code>) zmieniaj pod markę projektu.
+          </p>
+
+          <h3 class="text-lg font-semibold mb-2">Paleta</h3>
+          <div id="palette" class="flex flex-col gap-2 mb-6"></div>
+
+          <div class="example" data-title="Role">
+            <div class="flex flex-wrap gap-2">
+              <div class="px-4 py-2 rounded bg-primary text-white">bg-primary</div>
+              <div class="px-4 py-2 rounded bg-secondary text-white">bg-secondary</div>
+              <div class="px-4 py-2 rounded bg-success text-white">bg-success</div>
+              <div class="px-4 py-2 rounded bg-warning text-black">bg-warning</div>
+              <div class="px-4 py-2 rounded bg-danger text-white">bg-danger</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Tekst, tło i obramowanie">
+            <div class="flex flex-col gap-2">
+              <p class="text-primary">text-primary</p>
+              <p class="text-red-700">text-red-700</p>
+              <div class="p-3 bg-blue-100 text-blue-900 border border-blue-300 rounded">
+                bg-blue-100 text-blue-900 border-blue-300
+              </div>
+              <div class="p-3 bg-transparent text-green-700 border-2 border-current rounded">
+                border-current przejmuje kolor tekstu
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ODSTĘPY -->
+        <section id="odstepy" class="mb-12">
+          <h2 class="text-2xl font-bold mb-2">Odstępy</h2>
+          <p class="text-gray-700 mb-4">
+            Klasa <code>p-N</code> to <code>N × --spacing</code> (domyślnie 0.25rem). Kierunki: <code>p</code>,
+            <code>px</code>, <code>py</code>, <code>pt</code>, <code>pr</code>, <code>pb</code>, <code>pl</code>, tak
+            samo dla <code>m</code>, a do tego <code>m*-auto</code>, <code>gap</code>, <code>gap-x</code> i
+            <code>gap-y</code>.
+          </p>
+
+          <h3 class="text-lg font-semibold mb-2">Skala</h3>
+          <div id="spacing-scale" class="flex flex-col gap-1 mb-6 bg-white p-4 rounded-lg shadow-sm"></div>
+
+          <div class="example" data-title="Padding i margin">
+            <div class="bg-yellow-100 border border-yellow-300">
+              <div class="m-4 p-6 bg-white">m-4 p-6</div>
+              <div class="mx-8 my-2 px-4 py-1 bg-white">mx-8 my-2 px-4 py-1</div>
+              <div class="mt-6 ml-12 p-2 bg-white">mt-6 ml-12 p-2</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Gap">
+            <div class="flex flex-col gap-4">
+              <div class="flex gap-1">
+                <div class="p-2 bg-blue-100 rounded">gap-1</div>
+                <div class="p-2 bg-blue-100 rounded">gap-1</div>
+                <div class="p-2 bg-blue-100 rounded">gap-1</div>
+              </div>
+              <div class="flex gap-6">
+                <div class="p-2 bg-blue-100 rounded">gap-6</div>
+                <div class="p-2 bg-blue-100 rounded">gap-6</div>
+                <div class="p-2 bg-blue-100 rounded">gap-6</div>
+              </div>
+              <div class="grid grid-cols-3 gap-x-8 gap-y-2">
+                <div class="p-2 bg-green-100 rounded">gap-x-8</div>
+                <div class="p-2 bg-green-100 rounded">gap-y-2</div>
+                <div class="p-2 bg-green-100 rounded">…</div>
+                <div class="p-2 bg-green-100 rounded">…</div>
+                <div class="p-2 bg-green-100 rounded">…</div>
+                <div class="p-2 bg-green-100 rounded">…</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Wyśrodkowanie: mx-auto">
+            <div class="bg-gray-200 p-2">
+              <div class="mx-auto p-4 bg-white rounded text-center" style="width: 50%">mx-auto</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TYPOGRAFIA -->
+        <section id="typografia" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">Typografia</h2>
+
+          <div class="example" data-title="Rodzina fontu">
+            <div class="flex flex-col gap-1">
+              <p class="font-sans">font-sans – Zażółć gęślą jaźń</p>
+              <p class="font-serif">font-serif – Zażółć gęślą jaźń</p>
+              <p class="font-mono">font-mono – Zażółć gęślą jaźń</p>
+            </div>
+          </div>
+
+          <div class="example" data-title="Rozmiar">
+            <div class="flex flex-col gap-1">
+              <p class="text-xs">text-xs</p>
+              <p class="text-sm">text-sm</p>
+              <p class="text-base">text-base</p>
+              <p class="text-lg">text-lg</p>
+              <p class="text-xl">text-xl</p>
+              <p class="text-2xl">text-2xl</p>
+              <p class="text-3xl">text-3xl</p>
+              <p class="text-4xl">text-4xl</p>
+            </div>
+          </div>
+
+          <div class="example" data-title="Grubość">
+            <div class="flex flex-wrap gap-4">
+              <p class="font-normal">font-normal</p>
+              <p class="font-medium">font-medium</p>
+              <p class="font-semibold">font-semibold</p>
+              <p class="font-bold">font-bold</p>
+            </div>
+          </div>
+
+          <div class="example" data-title="Interlinia">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <p class="leading-none bg-gray-100 p-2">
+                leading-none: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore.
+              </p>
+              <p class="leading-tight bg-gray-100 p-2">
+                leading-tight: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore.
+              </p>
+              <p class="leading-normal bg-gray-100 p-2">
+                leading-normal: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore.
+              </p>
+              <p class="leading-relaxed bg-gray-100 p-2">
+                leading-relaxed: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore.
+              </p>
+            </div>
+          </div>
+
+          <div class="example" data-title="Wyrównanie">
+            <div class="flex flex-col gap-1">
+              <p class="text-left bg-gray-100 p-1">text-left</p>
+              <p class="text-center bg-gray-100 p-1">text-center</p>
+              <p class="text-right bg-gray-100 p-1">text-right</p>
+              <p class="text-justify bg-gray-100 p-1">
+                text-justify: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua.
+              </p>
+            </div>
+          </div>
+
+          <div class="example" data-title="Styl i transformacja">
+            <div class="flex flex-wrap gap-4">
+              <p class="italic">italic</p>
+              <p class="underline">underline</p>
+              <a class="no-underline text-primary" href="#typografia">no-underline</a>
+              <p class="uppercase">uppercase</p>
+              <p class="lowercase">LOWERCASE</p>
+              <p class="capitalize">capitalize each word</p>
+            </div>
+          </div>
+
+          <div class="example" data-title="Ucinanie: truncate">
+            <p class="truncate bg-gray-100 p-2" style="max-width: 16rem">
+              truncate: bardzo długi tekst, który nie mieści się w kontenerze i zostanie ucięty wielokropkiem
+            </p>
+          </div>
+        </section>
+
+        <!-- LAYOUT -->
+        <section id="layout" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">Layout</h2>
+
+          <div class="example" data-title="Display">
+            <div class="flex flex-col gap-2">
+              <div>
+                <span class="block p-1 bg-blue-100">block</span>
+                <span class="inline-block p-1 bg-green-100">inline-block</span>
+                <span class="inline p-1 bg-yellow-100">inline</span>
+                <span class="hidden">hidden – niewidoczny</span>
+              </div>
+              <div class="inline-flex gap-2 p-2 bg-gray-200 rounded">
+                <span class="p-1 bg-white rounded">inline-flex</span>
+                <span class="p-1 bg-white rounded">inline-flex</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Rozmiary">
+            <div class="flex flex-col gap-2">
+              <div class="w-full p-2 bg-blue-100">w-full</div>
+              <div class="w-auto inline-block p-2 bg-blue-100">w-auto</div>
+              <div class="demo-h bg-gray-200 p-2">
+                <div class="h-full bg-green-100 p-2">h-full w kontenerze o stałej wysokości</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Overflow">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="demo-h overflow-hidden bg-gray-100 p-2 text-sm">
+                overflow-hidden: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+              </div>
+              <div class="demo-h overflow-y-auto bg-gray-100 p-2 text-sm">
+                overflow-y-auto: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+              </div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Pozycja">
+            <div class="relative demo-h bg-gray-200 rounded overflow-hidden">
+              <div class="p-2">relative – kontener</div>
+              <div class="absolute inset-0 flex items-center justify-center bg-black opacity-50 text-white">
+                absolute inset-0
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FLEX -->
+        <section id="flex" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">Flex</h2>
+
+          <div class="example" data-title="Kierunek">
+            <div class="grid grid-cols-1 sm:grid-cols-2 items-start gap-4">
+              <div class="flex flex-row gap-2">
+                <div class="p-2 bg-blue-100 rounded">1</div>
+                <div class="p-2 bg-blue-100 rounded">2</div>
+                <div class="p-2 bg-blue-100 rounded">3</div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div class="p-2 bg-blue-100 rounded">1</div>
+                <div class="p-2 bg-blue-100 rounded">2</div>
+                <div class="p-2 bg-blue-100 rounded">3</div>
+              </div>
+              <div class="flex flex-row-reverse gap-2">
+                <div class="p-2 bg-green-100 rounded">1</div>
+                <div class="p-2 bg-green-100 rounded">2</div>
+                <div class="p-2 bg-green-100 rounded">3</div>
+              </div>
+              <div class="flex flex-col-reverse gap-2">
+                <div class="p-2 bg-green-100 rounded">1</div>
+                <div class="p-2 bg-green-100 rounded">2</div>
+                <div class="p-2 bg-green-100 rounded">3</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example" data-title="justify-*">
+            <div class="flex flex-col gap-2 text-sm">
+              <div class="flex justify-start gap-2 bg-gray-100 p-2">
+                <span class="p-1 bg-blue-100">start</span><span class="p-1 bg-blue-100">start</span>
+              </div>
+              <div class="flex justify-center gap-2 bg-gray-100 p-2">
+                <span class="p-1 bg-blue-100">center</span><span class="p-1 bg-blue-100">center</span>
+              </div>
+              <div class="flex justify-end gap-2 bg-gray-100 p-2">
+                <span class="p-1 bg-blue-100">end</span><span class="p-1 bg-blue-100">end</span>
+              </div>
+              <div class="flex justify-between bg-gray-100 p-2">
+                <span class="p-1 bg-blue-100">between</span><span class="p-1 bg-blue-100">between</span
+                ><span class="p-1 bg-blue-100">between</span>
+              </div>
+              <div class="flex justify-around bg-gray-100 p-2">
+                <span class="p-1 bg-blue-100">around</span><span class="p-1 bg-blue-100">around</span
+                ><span class="p-1 bg-blue-100">around</span>
+              </div>
+              <div class="flex justify-evenly bg-gray-100 p-2">
+                <span class="p-1 bg-blue-100">evenly</span><span class="p-1 bg-blue-100">evenly</span
+                ><span class="p-1 bg-blue-100">evenly</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="example" data-title="items-* i self-*">
+            <div class="flex items-center gap-2 bg-gray-100 p-2 demo-h">
+              <div class="p-2 bg-blue-100">items-center</div>
+              <div class="p-6 bg-blue-100">wyższy</div>
+              <div class="self-start p-2 bg-green-100">self-start</div>
+              <div class="self-end p-2 bg-green-100">self-end</div>
+              <div class="self-stretch p-2 bg-green-100">self-stretch</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="grow, shrink, flex-1">
+            <div class="flex flex-col gap-2">
+              <div class="flex gap-2">
+                <div class="flex-1 p-2 bg-blue-100">flex-1</div>
+                <div class="flex-1 p-2 bg-blue-100">flex-1</div>
+                <div class="flex-none p-2 bg-green-100">flex-none</div>
+              </div>
+              <div class="flex gap-2">
+                <div class="shrink-0 p-2 bg-green-100">shrink-0</div>
+                <div class="grow p-2 bg-blue-100">grow</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="example" data-title="flex-wrap">
+            <div class="flex flex-wrap gap-2 bg-gray-100 p-2" style="max-width: 20rem">
+              <div class="p-2 bg-blue-100">element 1</div>
+              <div class="p-2 bg-blue-100">element 2</div>
+              <div class="p-2 bg-blue-100">element 3</div>
+              <div class="p-2 bg-blue-100">element 4</div>
+              <div class="p-2 bg-blue-100">element 5</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- GRID -->
+        <section id="grid" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">Grid</h2>
+
+          <div class="example" data-title="grid-cols-*">
+            <div class="grid grid-cols-3 gap-2">
+              <div class="p-2 bg-blue-100 text-center">1</div>
+              <div class="p-2 bg-blue-100 text-center">2</div>
+              <div class="p-2 bg-blue-100 text-center">3</div>
+              <div class="p-2 bg-blue-100 text-center">4</div>
+              <div class="p-2 bg-blue-100 text-center">5</div>
+              <div class="p-2 bg-blue-100 text-center">6</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="col-span-* na siatce 12 kolumn">
+            <div class="grid grid-cols-12 gap-2 text-sm">
+              <div class="col-span-12 p-2 bg-green-100 text-center">col-span-12</div>
+              <div class="col-span-6 p-2 bg-green-100 text-center">col-span-6</div>
+              <div class="col-span-6 p-2 bg-green-100 text-center">col-span-6</div>
+              <div class="col-span-4 p-2 bg-green-100 text-center">col-span-4</div>
+              <div class="col-span-4 p-2 bg-green-100 text-center">col-span-4</div>
+              <div class="col-span-4 p-2 bg-green-100 text-center">col-span-4</div>
+              <div class="col-span-3 p-2 bg-green-100 text-center">3</div>
+              <div class="col-span-3 p-2 bg-green-100 text-center">3</div>
+              <div class="col-span-2 p-2 bg-green-100 text-center">2</div>
+              <div class="col-span-2 p-2 bg-green-100 text-center">2</div>
+              <div class="col-span-1 p-2 bg-green-100 text-center">1</div>
+              <div class="col-span-1 p-2 bg-green-100 text-center">1</div>
+              <div class="col-span-full p-2 bg-yellow-100 text-center">col-span-full</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- OBRAMOWANIA -->
+        <section id="obramowania" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">Obramowania</h2>
+
+          <div class="example" data-title="Szerokość i strony">
+            <div class="flex flex-wrap gap-4">
+              <div class="border p-4 bg-white">border</div>
+              <div class="border-2 p-4 bg-white">border-2</div>
+              <div class="border-4 p-4 bg-white">border-4</div>
+              <div class="border-t p-4 bg-white">border-t</div>
+              <div class="border-b p-4 bg-white">border-b</div>
+              <div class="border-l p-4 bg-white">border-l</div>
+              <div class="border-r p-4 bg-white">border-r</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Kolor obramowania">
+            <div class="flex flex-wrap gap-4">
+              <div class="border-2 border-primary p-4">border-primary</div>
+              <div class="border-2 border-danger p-4">border-danger</div>
+              <div class="border-2 border-gray-400 p-4">border-gray-400</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Zaokrąglenia">
+            <div class="flex flex-wrap gap-4 items-center">
+              <div class="rounded-none p-4 bg-blue-200">rounded-none</div>
+              <div class="rounded-sm p-4 bg-blue-200">rounded-sm</div>
+              <div class="rounded p-4 bg-blue-200">rounded</div>
+              <div class="rounded-lg p-4 bg-blue-200">rounded-lg</div>
+              <div class="rounded-xl p-4 bg-blue-200">rounded-xl</div>
+              <div class="rounded-full px-6 py-4 bg-blue-200">rounded-full</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EFEKTY -->
+        <section id="efekty" class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">Efekty</h2>
+
+          <div class="example" data-title="Cienie">
+            <div class="flex flex-wrap gap-6 p-2">
+              <div class="shadow-none p-4 bg-white rounded">shadow-none</div>
+              <div class="shadow-sm p-4 bg-white rounded">shadow-sm</div>
+              <div class="shadow p-4 bg-white rounded">shadow</div>
+              <div class="shadow-lg p-4 bg-white rounded">shadow-lg</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Przezroczystość">
+            <div class="flex flex-wrap gap-4">
+              <div class="opacity-100 p-4 bg-primary text-white rounded">opacity-100</div>
+              <div class="opacity-75 p-4 bg-primary text-white rounded">opacity-75</div>
+              <div class="opacity-50 p-4 bg-primary text-white rounded">opacity-50</div>
+              <div class="opacity-0 p-4 bg-primary text-white rounded">opacity-0</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Kursor (najedź)">
+            <div class="flex flex-wrap gap-4">
+              <div class="cursor-pointer p-4 bg-white border rounded">cursor-pointer</div>
+              <div class="cursor-default p-4 bg-white border rounded">cursor-default</div>
+              <div class="cursor-not-allowed p-4 bg-white border rounded opacity-50">cursor-not-allowed</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RESPONSYWNOŚĆ -->
+        <section id="responsywnosc" class="mb-12">
+          <h2 class="text-2xl font-bold mb-2">Responsywność</h2>
+          <p class="text-gray-700 mb-4">
+            Każda klasa ma warianty <code>sm:</code> (od 40rem), <code>md:</code> (48rem), <code>lg:</code> (64rem) i
+            <code>xl:</code> (80rem). Działają od danej szerokości w górę (mobile-first). Zmień szerokość okna.
+          </p>
+
+          <div class="example" data-title="Aktywny breakpoint">
+            <p class="text-lg">
+              Teraz:
+              <span class="font-bold text-primary inline sm:hidden">bazowy (&lt; 40rem)</span>
+              <span class="font-bold text-primary hidden sm:inline md:hidden">sm</span>
+              <span class="font-bold text-primary hidden md:inline lg:hidden">md</span>
+              <span class="font-bold text-primary hidden lg:inline xl:hidden">lg</span>
+              <span class="font-bold text-primary hidden xl:inline">xl</span>
+            </p>
+          </div>
+
+          <div class="example" data-title="Liczba kolumn zależna od szerokości">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+              <div class="p-4 bg-blue-100 rounded text-center">1</div>
+              <div class="p-4 bg-blue-100 rounded text-center">2</div>
+              <div class="p-4 bg-blue-100 rounded text-center">3</div>
+              <div class="p-4 bg-blue-100 rounded text-center">4</div>
+            </div>
+          </div>
+
+          <div class="example" data-title="Kierunek, rozmiar tekstu i widoczność">
+            <div class="flex flex-col md:flex-row gap-4 p-4 bg-white border rounded-lg">
+              <div class="flex-1">
+                <p class="text-sm md:text-lg font-semibold">text-sm md:text-lg</p>
+                <p class="text-gray-600">flex-col md:flex-row</p>
+              </div>
+              <div class="hidden md:block flex-1 p-2 bg-green-100 rounded">hidden md:block – widoczne od md</div>
+              <div class="block md:hidden p-2 bg-yellow-100 rounded">md:hidden – widoczne tylko poniżej md</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TOKENY -->
+        <section id="tokeny" class="mb-12">
+          <h2 class="text-2xl font-bold mb-2">Tokeny</h2>
+          <p class="text-gray-700 mb-4">Wszystkie zmienne z <code>src/tokens.css</code> z bieżącą wartością.</p>
+          <div class="bg-white rounded-lg shadow-sm overflow-x-auto">
+            <table class="w-full text-sm" style="border-collapse: collapse">
+              <thead>
+                <tr class="bg-gray-100 text-left">
+                  <th class="p-2">Token</th>
+                  <th class="p-2">Wartość</th>
+                  <th class="p-2"></th>
+                </tr>
+              </thead>
+              <tbody id="tokens-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- KLASY -->
+        <section id="klasy" class="mb-12">
+          <h2 class="text-2xl font-bold mb-2">Wszystkie klasy</h2>
+          <p class="text-gray-700 mb-4">
+            Lista generowana z załadowanego <code>devkit.css</code>. Każda klasa ma też warianty <code>sm:</code>,
+            <code>md:</code>, <code>lg:</code> i <code>xl:</code>. Kliknięcie nazwy kopiuje ją do schowka.
+          </p>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+            <input
+              id="class-search"
+              type="search"
+              placeholder="Szukaj klasy lub właściwości, np. gap albo color"
+              class="flex-1 p-2 border rounded"
+            />
+            <span id="class-count" class="shrink-0 text-sm text-gray-600"></span>
+          </div>
+          <div class="bg-white rounded-lg shadow-sm overflow-auto" style="max-height: 32rem">
+            <table class="w-full text-sm" style="border-collapse: collapse">
+              <thead>
+                <tr class="bg-gray-100 text-left">
+                  <th class="p-2">Klasa</th>
+                  <th class="p-2">Deklaracje</th>
+                </tr>
+              </thead>
+              <tbody id="classes-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <footer class="border-t pt-4 text-sm text-gray-600">
+          <a class="text-primary" href="https://github.com/Muraii-pl/DevKit">github.com/Muraii-pl/DevKit</a> · licencja
+          MIT
+        </footer>
+      </main>
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-2">
-      <div class="flex-1 h-auto p-4 bg-blue-100 text-blue-900 rounded">blue-100</div>
-      <div class="flex-1 p-4 bg-blue-500 text-white rounded">blue-500</div>
-      <div class="flex-1 p-4 bg-blue-900 text-white rounded">blue-900</div>
-    </div>
+    <script src="app.js"></script>
   </body>
 </html>

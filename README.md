@@ -33,6 +33,16 @@ npm install github:Muraii-pl/DevKit
 
 Breakpointy (mobile-first): `sm:` 40rem, `md:` 48rem, `lg:` 64rem, `xl:` 80rem.
 
+## Motywy
+
+Trzy motywy w wersji jasnej i ciemnej: `default`, `warm` i `ocean`. Włączasz je atrybutem na `<html>` albo na fragmencie:
+
+```html
+<html data-theme="ocean dark"></html>
+```
+
+Szczegóły: [docs/configuration.md](docs/configuration.md#5-motywy).
+
 ## Konfiguracja
 
 Nadpisz tokeny we własnym `:root`:
@@ -61,7 +71,8 @@ Pełna instrukcja (lista tokenów, tryb ciemny, motywy per sekcja, ograniczenia)
 | [colors.css](src/utilities/colors.css)         | text-_, bg-_, border-* dla palety i ról                        |
 | [effects.css](src/utilities/effects.css)       | shadow-_, opacity-_, cursor-*                                  |
 
-Podgląd online: <https://muraii-pl.github.io/DevKit/> (lokalnie: [examples/index.html](examples/index.html)).
+Dokumentacja z przykładami, tabelą tokenów i listą wszystkich klas: <https://muraii-pl.github.io/DevKit/>
+(lokalnie: `npm run preview`).
 
 ## Rozwój
 

@@ -44,3 +44,16 @@ test('każda klasa ma warianty responsywne w dist (także po minifikacji)', () =
     }
   }
 });
+
+test('motywy nadpisują tylko istniejące tokeny i używają zdefiniowanych zmiennych', () => {
+  const tokens = read(join(root, 'src/tokens.css'));
+  const themes = read(join(root, 'src/themes.css'));
+  const defined = new Set([...tokens.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
+  for (const [, name] of themes.matchAll(/(--[\w-]+)\s*:/g))
+    assert.ok(defined.has(name), `nowy token w motywie: ${name}`);
+  for (const [, name] of themes.matchAll(/var\((--[\w-]+)/g)) assert.ok(defined.has(name), `brak tokenu ${name}`);
+});
+
+test('każdy motyw jest w dist', () => {
+  for (const sel of ['dark', 'warm', 'ocean']) assert.ok(css.includes(`[data-theme~="${sel}"]`), sel);
+});

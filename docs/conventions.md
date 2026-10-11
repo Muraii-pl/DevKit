@@ -25,6 +25,8 @@
 - `src/tokens.css`: wszystkie tokeny w `:where(:root)`, każda wartość używana przez klasy musi tu być.
 - `src/utilities/<obszar>.css`: płaskie reguły, bez at-rules (`@media`, `@layer`) i bez zagnieżdżeń, bo build kopiuje
   je do wariantów responsywnych.
+- `src/themes.css`: motywy (`:where([data-theme~="..."])`), które nadpisują tylko tokeny z `tokens.css`. Każdy blok
+  deklaruje role ponownie. Nowy motyw = jasny blok + blok `[data-theme~="x"][data-theme~="dark"]` (ADR 004).
 - `src/index.css`: importy w ustalonej kolejności. Pliki, które mają wygrywać (np. `colors.css` nad `borders.css`),
   są importowane później.
 - `dist/`: generowany przez `npm run build`, commitowany (instalacja z GitHuba nie uruchamia builda). Nie edytuj ręcznie.
@@ -41,7 +43,8 @@
 - `test/*.test.mjs`, uruchamiane przez `node --test`, bez dodatkowych zależności.
 - Sprawdzają: aktualność `dist/`, płaskość utilities, unikalność klas, istnienie każdego użytego tokenu
   i warianty responsywne każdej klasy.
-- Wizualnie: `examples/index.html`.
+- Wizualnie: `npm run preview`. Przykład w `examples/index.html` to element `.example` z `data-title`;
+  `app.js` sam dokleja do niego kod HTML i przycisk kopiowania, więc nie przepisuj kodu ręcznie.
 
 ## Commity i branche
 

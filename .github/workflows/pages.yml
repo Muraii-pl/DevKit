@@ -42,8 +42,9 @@ jobs:
       - name: Złóż stronę (examples/ + dist/)
         run: |
           mkdir -p _site
+          cp -r examples/. _site/
           cp dist/devkit.css dist/devkit.min.css _site/
-          sed 's#\.\./dist/#./#' examples/index.html > _site/index.html
+          sed -i 's#\.\./dist/#./#' _site/index.html
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

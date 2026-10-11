@@ -2,11 +2,13 @@
  * Tokeny DevKit: wszystkie wartości, z których korzystają klasy.
  * Nadpisuj je w swoim projekcie w zwykłym `:root { ... }` (dokumentacja: docs/configuration.md).
  * `:where(:root)` ma specyficzność 0, więc każda Twoja deklaracja wygrywa niezależnie od kolejności.
+ * `[data-theme]` resetuje tokeny na elemencie z motywem, a themes.css nakłada potem wybrany motyw
+ * (dzięki temu jasny motyw działa też wewnątrz ciemnej strony; data-theme="light" = domyślny jasny).
  *
  * Breakpointy (sm 40rem, md 48rem, lg 64rem, xl 80rem) NIE są tokenami:
  * zmienne CSS nie działają w media queries.
  */
-:where(:root) {
+:where(:root, [data-theme]) {
   /* Kolory: stałe */
   --color-white: #fff;
   --color-black: #000;

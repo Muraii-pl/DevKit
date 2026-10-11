@@ -8,18 +8,20 @@ Wynik (`dist/`) jest commitowany, a pakiet instaluje się bezpośrednio z GitHub
 
 ## Moduły
 
-| Katalog / plik                  | Odpowiedzialność                                           |
-| ------------------------------- | ---------------------------------------------------------- |
-| `src/tokens.css`                | Tokeny w `:where(:root)` (specyficzność 0)                 |
-| `src/utilities/*.css`           | Płaskie reguły klas, wartości tylko przez `var()`          |
-| `src/index.css`                 | Kolejność importów = kolejność kaskady                     |
-| `scripts/build.mjs`             | Bundle (lightningcss), warianty `sm/md/lg/xl`, minifikacja |
-| `dist/`                         | `devkit.css`, `devkit.min.css`, generowane i commitowane   |
-| `test/`                         | Testy spójności źródeł i aktualności `dist/`               |
-| `examples/`                     | Strona do podglądu, publikowana na GitHub Pages            |
-| `.github/workflows/pages.yml`   | CI (`npm run check`) i deploy podglądu na Pages            |
-| `.github/workflows/publish.yml` | Publikacja w GitHub Packages po tagu `vX.Y.Z`              |
-| `scripts/hooks/`                | Hook Claude Code formatujący edytowane pliki               |
+| Katalog / plik                  | Odpowiedzialność                                                   |
+| ------------------------------- | ------------------------------------------------------------------ |
+| `src/tokens.css`                | Tokeny w `:where(:root, [data-theme])` (specyficzność 0)           |
+| `src/themes.css`                | Motywy default/warm/ocean × jasny/ciemny przez `data-theme`        |
+| `src/utilities/*.css`           | Płaskie reguły klas, wartości tylko przez `var()`                  |
+| `src/index.css`                 | Kolejność importów = kolejność kaskady                             |
+| `scripts/build.mjs`             | Bundle (lightningcss), warianty `sm/md/lg/xl`, minifikacja         |
+| `dist/`                         | `devkit.css`, `devkit.min.css`, generowane i commitowane           |
+| `test/`                         | Testy spójności źródeł i aktualności `dist/`                       |
+| `examples/`                     | Strona dokumentacji (HTML + `app.js`), publikowana na GitHub Pages |
+| `.github/workflows/pages.yml`   | CI (`npm run check`) i deploy podglądu na Pages                    |
+| `.github/workflows/publish.yml` | Publikacja w GitHub Packages po tagu `vX.Y.Z`                      |
+| `scripts/serve.mjs`             | Serwer podglądu (`npm run preview`)                                |
+| `scripts/hooks/`                | Hook Claude Code formatujący edytowane pliki                       |
 
 ## Przepływ danych
 

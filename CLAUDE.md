@@ -5,7 +5,7 @@ Uproszczona biblioteka klas narzędziowych CSS (css-utils) w stylu Tailwinda: go
 ## Stack
 
 - Czysty CSS w `src/`, build w Node 24 + lightningcss (`scripts/build.mjs`) → `dist/` (commitowany)
-- Konfiguracja przez tokeny (zmienne CSS bez prefiksu) w `src/tokens.css`
+- Konfiguracja przez tokeny (zmienne CSS bez prefiksu) w `src/tokens.css`, motywy w `src/themes.css` (`data-theme`)
 - Dystrybucja: `npm install github:Muraii-pl/DevKit`, pakiet `@muraii-pl/devkit`
 - npm, stylelint, prettier, testy na `node --test`
 
@@ -18,7 +18,7 @@ Uproszczona biblioteka klas narzędziowych CSS (css-utils) w stylu Tailwinda: go
 - Lint CSS: `npm run lint`
 - Format: `npm run format` (sprawdzenie: `npm run format:check`)
 - Wszystko naraz: `npm run check`
-- Podgląd: `examples/index.html` w przeglądarce
+- Podgląd strony z przykładami: `npm run preview` → http://localhost:4173/examples/
 
 ## Workflow
 
@@ -35,7 +35,7 @@ Uproszczona biblioteka klas narzędziowych CSS (css-utils) w stylu Tailwinda: go
 - Nie zmieniaj nazw istniejących klas ani tokenów (to publiczne API biblioteki) bez pytania.
 - Nie edytuj `dist/` ręcznie. Po zmianie w `src/` uruchom `npm run build` (test sprawdza aktualność).
 - Wartości w klasach tylko przez `var(--token)` z `src/tokens.css`. Pliki `src/utilities/` są płaskie, bez `@media`.
-- Nowy token lub klasa → zaktualizuj docs/configuration.md lub README.
+- Nowy token lub klasa → zaktualizuj docs/configuration.md lub README i dodaj przykład w `examples/index.html` (lista klas i tokenów generuje się sama).
 - Nie commituj i nie pushuj bez wyraźnej prośby.
 - Prostota przed kompletnością: nie dodawaj wariantów i funkcji „na zapas”.
 

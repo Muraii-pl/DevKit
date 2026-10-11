@@ -101,27 +101,71 @@ ma specyficzność 0, więc Twój `:root` zawsze wygrywa.
 
 Domyślne wartości znajdziesz w [`src/tokens.css`](../src/tokens.css).
 
-## 5. Przepisy
+## 5. Motywy
+
+DevKit ma trzy motywy, każdy w wersji jasnej i ciemnej. Podgląd wszystkich jest na stronie
+<https://muraii-pl.github.io/DevKit/#motywy>.
+
+| `data-theme`   | Motyw                                                                            |
+| -------------- | -------------------------------------------------------------------------------- |
+| brak / `light` | domyślny jasny                                                                   |
+| `dark`         | domyślny ciemny                                                                  |
+| `warm`         | ciepły: kremowe tło, ciepłe szarości, pomarańczowy primary, większe zaokrąglenia |
+| `warm dark`    | ciepły ciemny                                                                    |
+| `ocean`        | chłodny: chłodne szarości, morski primary, mniejsze zaokrąglenia                 |
+| `ocean dark`   | chłodny ciemny                                                                   |
+
+Motyw włączasz atrybutem na `<html>` (cała strona) albo na dowolnym elemencie (fragment):
+
+```html
+<html data-theme="ocean dark">
+  ...
+  <aside data-theme="light" class="bg-white text-gray-900">jasny panel na ciemnej stronie</aside>
+</html>
+```
+
+Przełącznik w JS:
+
+```js
+document.documentElement.dataset.theme = 'warm dark';
+```
+
+Ciemny według ustawień systemu:
+
+```js
+if (matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark';
+```
+
+Jak to działa:
+
+- **Tryb ciemny odwraca skale** (100 ↔ 900), a `white` i `black` zamieniają się rolami. `--color-white` to w nim ciemna
+  „powierzchnia”, a `--color-black` jasny tekst. Dzięki temu istniejący markup (`bg-white text-gray-900`,
+  `bg-blue-100 text-blue-900`) sam staje się ciemny i nie potrzebujesz klas `dark:`.
+- Konsekwencja: `text-white` na `bg-primary` w trybie ciemnym daje ciemny tekst na jaśniejszym primary. Kontrast
+  zostaje zachowany.
+- **Element z `data-theme` ustawia własny kolor tekstu i tła** (np. `bg-white text-gray-900`). Kolor tekstu dziedziczy
+  się z rodzica jako gotowa wartość, więc bez tej klasy fragment przejąłby kolor tekstu z reszty strony.
+- Motywy tylko nadpisują tokeny z `src/tokens.css` i nie dodają nowych.
+
+## 6. Przepisy
 
 ### Kolory marki
 
 Zmieniaj przede wszystkim **role** (`--color-primary` itd.), nie paletę. Wtedy `bg-blue-600`
 dalej oznacza niebieski, a `bg-primary` oznacza kolor marki.
 
-### Tryb ciemny
+### Własne kolory w motywie
+
+Motyw to zwykłe nadpisanie tokenów, więc możesz go dostroić selektorem atrybutu.
+Ma on wyższą specyficzność niż motywy DevKit, więc zawsze wygrywa:
 
 ```css
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: var(--color-blue-400);
-    --color-border: var(--color-gray-700);
-  }
+[data-theme~='dark'] {
+  --color-primary: #a78bfa;
 }
 
-/* albo przełącznik ręczny */
-[data-theme='dark'] {
-  --color-primary: var(--color-blue-400);
-  --color-border: var(--color-gray-700);
+[data-theme~='warm'][data-theme~='dark'] {
+  --color-primary: #fbbf24;
 }
 ```
 
@@ -156,8 +200,9 @@ potrzebujesz czegoś spoza zestawu, napisz klasę we własnym CSS i użyj token�
 }
 ```
 
-## 6. Ograniczenia
+## 7. Ograniczenia
 
+- **Motywy nie mają wariantów klas** (`dark:bg-...`). Zamiast nich tryb ciemny odwraca skale kolorów.
 - **Breakpointy nie są konfigurowalne.** Zmienne CSS nie działają w media queries, więc
   `sm` = 40rem, `md` = 48rem, `lg` = 64rem i `xl` = 80rem są wpisane w build
   ([`scripts/build.mjs`](../scripts/build.mjs)). Zmiana wymaga zmiany w bibliotece.

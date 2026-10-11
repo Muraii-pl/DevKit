@@ -2,29 +2,48 @@
 
 ## Cel
 
-Szkielet pakietu DevKit: czysty CSS, instalowalny z GitHuba (`npm install github:Muraii-pl/DevKit`),
-konfigurowalny tokenami, z lintem, formatowaniem i testami.
+Strona podglądu (GitHub Pages) jako pełna dokumentacja z przykładami: każda grupa klas pokazana na żywo,
+tabela tokenów i pełna lista klas, która aktualizuje się sama przy zmianach w bibliotece.
 
 ## Plan
 
-- [x] Ustalić odpowiedzi na pytania (nazwy jak Tailwind, tokeny bez prefiksu, responsywność, minifikacja)
-- [x] `package.json` (`@muraii-pl/devkit`, exports, files, skrypty)
-- [x] `src/tokens.css` + `src/index.css` + `src/utilities/*.css` (layout, flex, grid, spacing, typography, borders, colors, effects)
-- [x] Build `scripts/build.mjs`: warianty sm/md/lg/xl + `dist/devkit.min.css`
-- [x] Testy `test/build.test.mjs`
-- [x] stylelint, prettier, `.gitignore`, `.editorconfig`
-- [x] Hook PostToolUse + `allow` w `.claude/settings.json`
-- [x] CLAUDE.md, docs/conventions.md, docs/architecture.md, ADR 002 i 003
-- [x] docs/configuration.md (konfiguracja tokenów per projekt), README, examples/index.html
+- [x] Układ strony: nagłówek, boczna nawigacja po sekcjach (na mobile u góry), strona ostylowana samym DevKit
+      (plus minimalny własny CSS tylko tam, gdzie DevKit czegoś nie ma)
+- [x] Sekcja „Start”: instalacja (GitHub Packages i repo), dołączenie CSS, nadpisanie tokenów
+- [x] ~~Konfigurator tokenów~~ – usunięty na prośbę właściciela
+- [x] Sekcje z przykładami na żywo i kodem obok:
+  - [x] Kolory: paleta (próbki 100–900 z nazwą tokenu), role, text/bg/border
+  - [x] Odstępy: wizualna skala p/m/gap
+  - [x] Typografia: rodziny, rozmiary, grubości, interlinia, wyrównanie, truncate
+  - [x] Layout: display, rozmiary, overflow, position
+  - [x] Flex: kierunek, wrap, items, justify, grow/shrink
+  - [x] Grid: grid-cols, col-span
+  - [x] Obramowania: szerokości, kolory, rounded
+  - [x] Efekty: cienie, opacity, cursor
+  - [x] Responsywność: wskaźnik aktywnego breakpointu, przykład `md:`/`lg:`
+- [x] „Wszystkie klasy”: tabela z wyszukiwarką, generowana w JS z załadowanego `devkit.css`
+      (klasa → deklaracje), bez ręcznego przepisywania
+- [x] Pliki: `examples/index.html` + `examples/app.js`; workflow kopiuje cały `examples/`
+- [x] Przycisk „kopiuj” przy blokach kodu
+
+- [x] Motywy: default/warm/ocean × jasny/ciemny (`src/themes.css`, `data-theme`), przełącznik w nawigacji,
+      sekcja „Motywy” z 6 podglądami, testy, ADR 004, docs
+
+## Ryzyka
+
+- Przykłady w HTML mogą się rozjechać z biblioteką, ale lista klas generuje się sama, więc rozjazd byłby widoczny.
+- Strona nie może wymagać builda (czysty HTML + JS), żeby dalej działała lokalnie przez otwarcie pliku.
 
 ## Weryfikacja
 
-- [x] `npm run check` (lint + format + testy) przechodzi
-- [x] `npm pack --dry-run`: tylko README, package.json, src/, dist/
-- [ ] Wizualny przegląd `examples/index.html` w przeglądarce (do zrobienia przez właściciela)
+- [x] `npm run check` przechodzi
+- [x] Strona działa lokalnie (`npm run preview`)
+- [ ] Strona działa na Pages po deployu
+- [ ] Przegląd wizualny na szerokości telefonu i desktopu (właściciel)
 
 ## Notatki / review
 
-- Zrobione: licencja MIT, GitHub Pages z CI, tag `v0.1.0`.
-- Otwarte: konwencja commitów.
-- Paleta oklch jest autorska i wyliczona ze wzoru, więc warto ją obejrzeć i ewentualnie dostroić wartości w `src/tokens.css`.
+- Poprzednie zadanie (szkielet pakietu, Pages, publikacja w GitHub Packages) zakończone, wydane jako v0.1.2.
+- Sprawdzone w headless Chromium (1400px i 390px): brak błędów JS, brak poziomego scrolla, 32 przykłady, 478 klas, 82 tokeny.
+- DevKit nie ma resetu stylów (preflight), więc strona ma własny minimalny reset. Do rozważenia jako opcjonalny `src/base.css`.
+- Otwarte: konwencja commitów, przegląd palety oklch (yellow 500–600 wygląda oliwkowo).

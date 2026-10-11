@@ -4,6 +4,7 @@
  * Warianty responsywne (sm:, md:, lg:, xl:) dokleja build do dist/.
  */
 @import url("./tokens.css");
+@import url("./themes.css");
 @import url("./utilities/layout.css");
 @import url("./utilities/flex.css");
 @import url("./utilities/grid.css");
