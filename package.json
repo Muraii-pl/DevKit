@@ -1,6 +1,6 @@
 {
   "name": "@muraii-pl/devkit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Uproszczona biblioteka klas narzędziowych CSS w stylu Tailwinda, konfigurowana zmiennymi CSS.",
   "license": "MIT",
   "homepage": "https://muraii-pl.github.io/DevKit/",
