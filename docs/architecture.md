@@ -8,16 +8,17 @@ Wynik (`dist/`) jest commitowany, a pakiet instaluje się bezpośrednio z GitHub
 
 ## Moduły
 
-| Katalog / plik        | Odpowiedzialność                                           |
-| --------------------- | ---------------------------------------------------------- |
-| `src/tokens.css`      | Tokeny w `:where(:root)` (specyficzność 0)                 |
-| `src/utilities/*.css` | Płaskie reguły klas, wartości tylko przez `var()`          |
-| `src/index.css`       | Kolejność importów = kolejność kaskady                     |
-| `scripts/build.mjs`   | Bundle (lightningcss), warianty `sm/md/lg/xl`, minifikacja |
-| `dist/`               | `devkit.css`, `devkit.min.css`, generowane i commitowane   |
-| `test/`               | Testy spójności źródeł i aktualności `dist/`               |
-| `examples/`           | Strona do podglądu w przeglądarce                          |
-| `scripts/hooks/`      | Hook Claude Code formatujący edytowane pliki               |
+| Katalog / plik                | Odpowiedzialność                                           |
+| ----------------------------- | ---------------------------------------------------------- |
+| `src/tokens.css`              | Tokeny w `:where(:root)` (specyficzność 0)                 |
+| `src/utilities/*.css`         | Płaskie reguły klas, wartości tylko przez `var()`          |
+| `src/index.css`               | Kolejność importów = kolejność kaskady                     |
+| `scripts/build.mjs`           | Bundle (lightningcss), warianty `sm/md/lg/xl`, minifikacja |
+| `dist/`                       | `devkit.css`, `devkit.min.css`, generowane i commitowane   |
+| `test/`                       | Testy spójności źródeł i aktualności `dist/`               |
+| `examples/`                   | Strona do podglądu, publikowana na GitHub Pages            |
+| `.github/workflows/pages.yml` | CI (`npm run check`) i deploy podglądu na Pages            |
+| `scripts/hooks/`              | Hook Claude Code formatujący edytowane pliki               |
 
 ## Przepływ danych
 
@@ -28,6 +29,7 @@ Wynik (`dist/`) jest commitowany, a pakiet instaluje się bezpośrednio z GitHub
 
 - GitHub jako źródło pakietu, wersje przez tagi (docs/decisions/001-czysty-css-pakiet-github.md).
 - lightningcss: tylko w devDependencies, używany w buildzie.
+- GitHub Pages: <https://muraii-pl.github.io/DevKit/>, budowane z `examples/index.html` i `dist/` przez workflow.
 
 ## Miejsca wrażliwe
 

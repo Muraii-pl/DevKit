@@ -53,7 +53,7 @@ Pełna instrukcja (lista tokenów, tryb ciemny, motywy per sekcja, ograniczenia)
 | [colors.css](src/utilities/colors.css)         | text-_, bg-_, border-* dla palety i ról                        |
 | [effects.css](src/utilities/effects.css)       | shadow-_, opacity-_, cursor-*                                  |
 
-Podgląd: otwórz [examples/index.html](examples/index.html) w przeglądarce.
+Podgląd online: <https://muraii-pl.github.io/DevKit/> (lokalnie: [examples/index.html](examples/index.html)).
 
 ## Rozwój
 
@@ -64,3 +64,7 @@ npm run check    # lint + format + testy
 ```
 
 Zasady pracy: [docs/conventions.md](docs/conventions.md).
+
+## Licencja
+
+[MIT](LICENSE)

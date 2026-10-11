@@ -25,5 +25,6 @@ konfigurowalny tokenami, z lintem, formatowaniem i testami.
 
 ## Notatki / review
 
-- Otwarte: licencja (brak pola `license` w package.json), konwencja commitów, pierwszy tag `v0.1.0`
+- Zrobione: licencja MIT, GitHub Pages z CI, tag `v0.1.0`.
+- Otwarte: konwencja commitów.
 - Paleta oklch jest autorska i wyliczona ze wzoru, więc warto ją obejrzeć i ewentualnie dostroić wartości w `src/tokens.css`.
